@@ -1,9 +1,9 @@
 ﻿using Snake.Structures;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using Snake.Tools.Interfaces;
 
-namespace Snake.Tools
+namespace Snake.Tools.Implementations
 {
     public sealed class Printer : IPrinter
     {
@@ -13,10 +13,10 @@ namespace Snake.Tools
             InitialCurosrPosition = initialCurosrPosition;
         }
 
-        public void Print(Dictionary<Point, BoardField> data)
+        public void Print(ref Board board)
         {
             Console.CursorVisible = false;
-            foreach(var field in data.Where(c=>c.Value.NeedsRefreshing))
+            foreach(var field in board.Fields.Where(c=>c.Value.NeedsRefreshing))
             {
                 Console.SetCursorPosition(
                     InitialCurosrPosition.XCord + field.Key.XCord, 

@@ -1,11 +1,10 @@
 ﻿using Snake.Structures;
-using System.Collections.Generic;
 
-namespace Snake.Tools
+namespace Snake.Tools.Interfaces
 {
     public interface IPrinter
     {
         Point InitialCurosrPosition { get; init; }
-        void Print(Dictionary<Point, BoardField> data);
+        void Print(ref Board board);
     }
 }

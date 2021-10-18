@@ -46,9 +46,9 @@ namespace Snake.Structures
         public bool NeedsRefreshing { get; set; }
         public BoardField(char charToPrint)
         {
-            this.SetCharFunc(charToPrint);
+            this.SetChar(charToPrint);
         }
-        public void SetCharFunc(char charToPrint)
+        public void SetChar(char charToPrint)
         {
             _charToPrint = charToPrint;
             NeedsRefreshing = true;

@@ -10,37 +10,51 @@ namespace Snake
     {
         private readonly Board _Board;
         private readonly Structures.Snake _Snake;
+        private Fruit[] _Fruits;
+
         private readonly IPrinter _Pritner;
+        private readonly IFruitSpawner _FruitSpawner;
+
         private readonly Difficulty _Difficulty;
         private Direction _CurrentDirection;
+
         private readonly CancellationTokenSource _Cts;
         public GameProcessor(int boardWidth, int boardHeight, int initialCursorLeft, int initialCursorTop, Difficulty difficulty)
         {
             _Cts = new CancellationTokenSource();
             _Board = new Board(boardWidth, boardHeight);
             _Pritner = new Printer(new(initialCursorLeft, initialCursorTop));
+            _FruitSpawner = new FruitSpawner();
             _Difficulty = difficulty;
             _CurrentDirection = Direction.NONE;
+
             _Snake = new Structures.Snake(new(boardWidth / 2, boardHeight / 2));
             _Snake.AddNode();
             _Snake.AddNode();
             _Snake.AddNode();
             _Snake.AddNode();
-
             var nodesLocations = _Snake.GetAllNodesLocations();
             bool isHead = true;
             foreach (var location in nodesLocations)
             {
                 if (isHead)
                 {
-                    _Board.Data[location].SetCharFunc(DisplayTable.SnakeHeadRight);
+                    _Board.Fields[location].SetCharFunc(DisplayTable.SnakeHeadRight);
                     isHead = false;
                 }
                 else
                 {
-                    _Board.Data[location].SetCharFunc(DisplayTable.SnakeBody);
+                    _Board.Fields[location].SetCharFunc(DisplayTable.SnakeBody);
                 }
             }
+
+            _Fruits = new Fruit[]
+            {
+                _FruitSpawner.SpawnFruit(_Board.Fields),
+                _FruitSpawner.SpawnFruit(_Board.Fields),
+                _FruitSpawner.SpawnFruit(_Board.Fields)
+            };
+
         }
         public void Start()
         {
@@ -72,7 +86,7 @@ namespace Snake
             {
                 await Task.Delay(intervalMs,cancellationToken);
                 MoveSnake(_CurrentDirection);
-                _Pritner.Print(_Board.Data);
+                _Pritner.Print(_Board.Fields);
             }
         }
         private void MoveSnake(Direction direction)
@@ -89,25 +103,25 @@ namespace Snake
                 case Direction.DOWN: 
                     { 
                         _Snake.Head.Location = new(_Snake.Head.Location.XCord, _Snake.Head.Location.YCord + 1);
-                        _Board.Data[_Snake.Head.Location].SetCharFunc(DisplayTable.SnakeHeadDown);
+                        _Board.Fields[_Snake.Head.Location].SetCharFunc(DisplayTable.SnakeHeadDown);
                     };
                     break;
                 case Direction.UP: 
                     {
                         _Snake.Head.Location = new(_Snake.Head.Location.XCord, _Snake.Head.Location.YCord - 1);
-                        _Board.Data[_Snake.Head.Location].SetCharFunc(DisplayTable.SnakeHeadUp);
+                        _Board.Fields[_Snake.Head.Location].SetCharFunc(DisplayTable.SnakeHeadUp);
                     };
                     break;
                 case Direction.RIGHT: 
                     {
                         _Snake.Head.Location = new(_Snake.Head.Location.XCord + 1, _Snake.Head.Location.YCord);
-                        _Board.Data[_Snake.Head.Location].SetCharFunc(DisplayTable.SnakeHeadRight);
+                        _Board.Fields[_Snake.Head.Location].SetCharFunc(DisplayTable.SnakeHeadRight);
                     };
                     break;
                 case Direction.LEFT: 
                     {
                         _Snake.Head.Location = new(_Snake.Head.Location.XCord - 1, _Snake.Head.Location.YCord);
-                        _Board.Data[_Snake.Head.Location].SetCharFunc(DisplayTable.SnakeHeadLeft);
+                        _Board.Fields[_Snake.Head.Location].SetCharFunc(DisplayTable.SnakeHeadLeft);
                     };break;
             }
         }
@@ -119,10 +133,10 @@ namespace Snake
             }
             else
             {
-                _Board.Data[nodeToMove.Location].SetCharFunc(DisplayTable.Empty);
+                _Board.Fields[nodeToMove.Location].SetCharFunc(DisplayTable.Empty);
             }
             nodeToMove.Location = parentNodeLocation;
-            _Board.Data[nodeToMove.Location].SetCharFunc(DisplayTable.SnakeBody);
+            _Board.Fields[nodeToMove.Location].SetCharFunc(DisplayTable.SnakeBody);
 
         }
         private int GetMsInterval(Difficulty difficulty)

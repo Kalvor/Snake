@@ -16,6 +16,6 @@
         public static char SnakeHeadDown => 'v';
         public static char SnakeHeadRight => '>';
         public static char SnakeHeadLeft => '<';
-        public static char Fruit => 'X'; 
+        public static char Fruit => 'x'; 
     }
 }

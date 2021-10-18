@@ -7,17 +7,17 @@ namespace Snake.Structures
     {
         private int _Width { get; init; }
         private int _Height { get; init; }
-        public Dictionary<Point, BoardField> Data { get; set; }
+        public Dictionary<Point, BoardField> Fields { get; set; }
         public Board(int width, int height)
         {
             _Width = width;
             _Height = height;
-            Data = new Dictionary<Point, BoardField>();
+            Fields = new Dictionary<Point, BoardField>();
             for(int i = 0;i< height; i++)
             {
                 for(int j=0;j<width;j++)
                 { 
-                    Data.Add(new(j,i), new BoardField(GetCharToPrint(j, i)));
+                    Fields.Add(new(j,i), new BoardField(GetCharToPrint(j, i)));
                 }
             }
         }

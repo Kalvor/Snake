@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Snake.Structures;
+using System;
 using System.Threading.Tasks;
 
 namespace Snake
@@ -7,7 +8,6 @@ namespace Snake
     {
         static void Main(string[] args)
         {
-          
 
         }
     }

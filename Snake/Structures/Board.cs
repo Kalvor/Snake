@@ -6,7 +6,7 @@ namespace Snake.Structures
     {
         private int _Width { get; init; }
         private int _Height { get; init; }
-        private Dictionary<Point, BoardField> Data { get; set; }
+        public Dictionary<Point, BoardField> Data { get; set; }
         public Board(int width, int height)
         {
             _Width = width;
@@ -24,9 +24,11 @@ namespace Snake.Structures
         {
             if (currentHeight == 0 && currentWidth == 0)                    return DisplayTable.BoardLeftTopCorner;
             if (currentHeight == _Height - 1 && currentWidth == 0)          return DisplayTable.BoardLeftBottomCorner;
-            if (currentHeight == 0 && currentWidth == _Width - 1)           return DisplayTable.BoardLeftBottomCorner;
+            if (currentHeight == 0 && currentWidth == _Width - 1)           return DisplayTable.BoardRightTopCorner;
             if (currentHeight == _Height - 1 && currentWidth == _Width - 1) return DisplayTable.BoardRightBottomCorner;
-
+            if (currentHeight == 0) return DisplayTable.BoardTopBorder;
+            if (currentHeight == _Height -1) return DisplayTable.BoardTopBorder;
+            if (currentWidth == 0 || currentWidth == _Width-1) return DisplayTable.BoardSideBorder;
             return DisplayTable.Empty;
         }
     }

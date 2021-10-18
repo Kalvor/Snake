@@ -2,6 +2,8 @@
 using Snake.Structures;
 using Snake.Tools.Implementations;
 using Snake.Tools.Interfaces;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,11 +13,12 @@ namespace Snake
     {
         private Board _Board;
         private Structures.Snake _Snake;
-        private Fruit[] _Fruits;
+        private List<Fruit> _Fruits;
 
         private readonly IPrinter _Pritner;
         private readonly IFruitSpawner _FruitSpawner;
         private readonly ISnakeMover _SnakeMover;
+        private readonly ICollisionDetector _CollisionDetector;
 
         private readonly Difficulty _Difficulty;
         private Direction _CurrentDirection;
@@ -28,6 +31,7 @@ namespace Snake
             _Pritner = new Printer(new(initialCursorLeft, initialCursorTop));
             _FruitSpawner = new FruitSpawner();
             _SnakeMover = new SnakeMover();
+            _CollisionDetector = new CollisionDetector();
 
             _Difficulty = difficulty;
             _CurrentDirection = Direction.NONE;
@@ -38,7 +42,7 @@ namespace Snake
             _Snake.AddNode();
             _Snake.AddNode();
 
-            _Fruits = new Fruit[]
+            _Fruits = new List<Fruit>()
             {
                 _FruitSpawner.SpawnFruit(ref _Board),
                 _FruitSpawner.SpawnFruit(ref _Board),
@@ -76,6 +80,16 @@ namespace Snake
             {
                 await Task.Delay(intervalMs,cancellationToken);
                 _SnakeMover.MoveSnake(ref _Snake, _CurrentDirection, ref _Board);
+                if(_CollisionDetector.CheckForFruitCollision(_Snake.Head, _Fruits.ToArray()))
+                {
+                    _Snake.AddNode();
+                    _Fruits.Remove(_Fruits.FirstOrDefault(c => c.Location == _Snake.Head.Location));
+                    _Fruits.Add(_FruitSpawner.SpawnFruit(ref _Board));                  
+                }
+                if(_CollisionDetector.CheckForSelfCollision(_Snake) || _CollisionDetector.CheckForBorderCollision(_Snake.Head,_Board))
+                {
+                    _Cts.Cancel();
+                }
                 _Pritner.Print(ref _Board);
             }
         }

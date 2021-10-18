@@ -10,7 +10,7 @@ namespace Snake
     {
         static void Main(string[] args)
         {
-            var gameProcessor = new GameProcessor(40, 10, 0, 0, Enums.Difficulty.EASY);
+            var gameProcessor = new GameProcessor(40, 20, 0, 0, Enums.Difficulty.MEDIUM);
             gameProcessor.Start();
         }
     }

@@ -52,7 +52,7 @@ namespace Snake
         }
         public void Start()
         {
-            _ = BeginMovementCycle(GetMsInterval(_Difficulty), _Cts.Token);
+            _ = beginMovementCycle(getMsInterval(_Difficulty), _Cts.Token);
             while(_Cts.Token.IsCancellationRequested == false)
             {
                 var pressedChar = System.Console.ReadKey(true).KeyChar;
@@ -74,7 +74,7 @@ namespace Snake
             }
         }
 
-        private async Task BeginMovementCycle(int intervalMs, CancellationToken cancellationToken)
+        private async Task beginMovementCycle(int intervalMs, CancellationToken cancellationToken)
         {
             while(cancellationToken.IsCancellationRequested == false)
             {
@@ -82,9 +82,7 @@ namespace Snake
                 _SnakeMover.MoveSnake(ref _Snake, _CurrentDirection, ref _Board);
                 if(_CollisionDetector.CheckForFruitCollision(_Snake.Head, _Fruits.ToArray()))
                 {
-                    _Snake.AddNode();
-                    _Fruits.Remove(_Fruits.FirstOrDefault(c => c.Location == _Snake.Head.Location));
-                    _Fruits.Add(_FruitSpawner.SpawnFruit(ref _Board));                  
+                    consumeFruit();       
                 }
                 if(_CollisionDetector.CheckForSelfCollision(_Snake) || _CollisionDetector.CheckForBorderCollision(_Snake.Head,_Board))
                 {
@@ -93,7 +91,13 @@ namespace Snake
                 _Pritner.Print(ref _Board);
             }
         }
-        private int GetMsInterval(Difficulty difficulty)
+        private void consumeFruit()
+        {
+            _Snake.AddNode();
+            _Fruits.Remove(_Fruits.FirstOrDefault(c => c.Location == _Snake.Head.Location));
+            _Fruits.Add(_FruitSpawner.SpawnFruit(ref _Board));
+        }
+        private int getMsInterval(Difficulty difficulty)
         {
             return difficulty switch
             {

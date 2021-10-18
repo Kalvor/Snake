@@ -12,7 +12,10 @@ namespace Snake.Tools.Implementations
     {
         public bool CheckForBorderCollision(SnakeNode snakeHead, Board board)
         {
-            return false;
+            return snakeHead.Location.XCord == 0 ||
+                   snakeHead.Location.YCord == 0 ||
+                   snakeHead.Location.XCord == board.Fields.Max(c => c.Key.XCord) ||
+                   snakeHead.Location.YCord == board.Fields.Max(c => c.Key.YCord);
         }
 
         public bool CheckForFruitCollision(SnakeNode snakeHead, Fruit[] fruits)

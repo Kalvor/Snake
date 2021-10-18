@@ -5,6 +5,7 @@ namespace Snake.Structures
     public sealed class BoardField
     {
         public Func<char> GetChar { get; set; }
+        public bool NeedsRefreshing { get; set; }
         private bool _IsLocked;
         public BoardField(char charToPrint, bool isLocked)
         {
@@ -16,6 +17,7 @@ namespace Snake.Structures
             if(!_IsLocked)
             {
                 GetChar = () => charToPrint;
+                NeedsRefreshing = true;
             }
         }
     }

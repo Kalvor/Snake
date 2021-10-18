@@ -1,6 +1,8 @@
 ﻿using Snake.Enums;
 using Snake.Structures;
 using Snake.Tools;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Snake
 {
@@ -10,24 +12,67 @@ namespace Snake
         private readonly Structures.Snake _Snake;
         private readonly IPrinter _Pritner;
         private readonly Difficulty _Difficulty;
+        private Direction _CurrentDirection;
+        private readonly CancellationTokenSource _Cts;
         public GameProcessor(int boardWidth, int boardHeight, int initialCursorLeft, int initialCursorTop, Difficulty difficulty)
         {
+            _Cts = new CancellationTokenSource();
             _Board = new Board(boardWidth, boardHeight);
             _Pritner = new Printer(new(initialCursorLeft, initialCursorTop));
             _Difficulty = difficulty;
-
+            _CurrentDirection = Direction.NONE;
             _Snake = new Structures.Snake(new(boardWidth / 2, boardHeight / 2));
             _Snake.AddNode();
             _Snake.AddNode();
-            this.RegisterSnakeAtBoard();
+            _Snake.AddNode();
+            _Snake.AddNode();
+
+            var nodesLocations = _Snake.GetAllNodesLocations();
+            bool isHead = true;
+            foreach (var location in nodesLocations)
+            {
+                if (isHead)
+                {
+                    _Board.Data[location].SetCharFunc(DisplayTable.SnakeHeadRight);
+                    isHead = false;
+                }
+                else
+                {
+                    _Board.Data[location].SetCharFunc(DisplayTable.SnakeBody);
+                }
+            }
+        }
+        public void Start()
+        {
+            _ = BeginMovementCycle(GetMsInterval(_Difficulty), _Cts.Token);
+            while(_Cts.Token.IsCancellationRequested == false)
+            {
+                var pressedChar = System.Console.ReadKey(true).KeyChar;
+                if(pressedChar == 'q')
+                {
+                    _Cts.Cancel();
+                }
+                else
+                {
+                    _CurrentDirection = pressedChar switch
+                    {
+                        'w' => Direction.UP,
+                        's' => Direction.DOWN,
+                        'a' => Direction.LEFT,
+                        'd' => Direction.RIGHT,
+                         _  => Direction.NONE
+                    };
+                }
+            }
         }
 
-        private void RegisterSnakeAtBoard()
+        private async Task BeginMovementCycle(int intervalMs, CancellationToken cancellationToken)
         {
-            var nodesLocations = _Snake.GetAllNodesLocations();
-            foreach(var location in nodesLocations)
+            while(cancellationToken.IsCancellationRequested == false)
             {
-                _Board.Data[location].SetCharFunc(DisplayTable.SnakeBody);
+                await Task.Delay(intervalMs,cancellationToken);
+                MoveSnake(_CurrentDirection);
+                _Pritner.Print(_Board.Data);
             }
         }
         private void MoveSnake(Direction direction)
@@ -77,6 +122,18 @@ namespace Snake
                 _Board.Data[nodeToMove.Location].SetCharFunc(DisplayTable.Empty);
             }
             nodeToMove.Location = parentNodeLocation;
+            _Board.Data[nodeToMove.Location].SetCharFunc(DisplayTable.SnakeBody);
+
+        }
+        private int GetMsInterval(Difficulty difficulty)
+        {
+            return difficulty switch
+            {
+                Difficulty.EASY => 100,
+                Difficulty.MEDIUM => 75,
+                Difficulty.HARD => 50,
+                _ => throw new System.NotImplementedException()
+            };
         }
     }
 }

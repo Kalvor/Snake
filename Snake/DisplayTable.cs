@@ -11,7 +11,7 @@
         public static char BoardRightBottomCorner => '╝';
         public static char Empty => ' ';
 
-        public static char SnakeBody => 'O';
+        public static char SnakeBody => 'o';
         public static char SnakeHeadUp => '^';
         public static char SnakeHeadDown => 'v';
         public static char SnakeHeadRight => '>';

@@ -15,6 +15,7 @@ namespace Snake.Tools
 
         public void Print(Dictionary<Point, BoardField> data)
         {
+            Console.CursorVisible = false;
             foreach(var field in data.Where(c=>c.Value.NeedsRefreshing))
             {
                 Console.SetCursorPosition(

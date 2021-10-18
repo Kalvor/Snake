@@ -17,7 +17,7 @@ namespace Snake.Structures
             {
                 for(int j=0;j<width;j++)
                 { 
-                    Data.Add(new(j,i), new BoardField(GetCharToPrint(j, i), true));
+                    Data.Add(new(j,i), new BoardField(GetCharToPrint(j, i)));
                 }
             }
         }
@@ -44,19 +44,14 @@ namespace Snake.Structures
         }
         private char _charToPrint { get; set; }
         public bool NeedsRefreshing { get; set; }
-        private bool _IsLocked;
-        public BoardField(char charToPrint, bool isLocked)
+        public BoardField(char charToPrint)
         {
             this.SetCharFunc(charToPrint);
-            _IsLocked = isLocked;
         }
         public void SetCharFunc(char charToPrint)
         {
-            if (!_IsLocked)
-            {
-                _charToPrint = charToPrint;
-                NeedsRefreshing = true;
-            }
+            _charToPrint = charToPrint;
+            NeedsRefreshing = true;
         }
     }
 }

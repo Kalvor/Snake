@@ -80,14 +80,15 @@ namespace Snake
             {
                 await Task.Delay(intervalMs,cancellationToken);
                 _SnakeMover.MoveSnake(ref _Snake, _CurrentDirection, ref _Board);
-                if(_CollisionDetector.CheckForFruitCollision(_Snake.Head, _Fruits.ToArray()))
-                {
-                    consumeFruit();       
-                }
-                if(_CollisionDetector.CheckForSelfCollision(_Snake) || _CollisionDetector.CheckForBorderCollision(_Snake.Head,_Board))
+                if (_CollisionDetector.CheckForSelfCollision(_Snake) || _CollisionDetector.CheckForBorderCollision(_Snake.Head, _Board))
                 {
                     _Cts.Cancel();
                 }
+                if (_CollisionDetector.CheckForFruitCollision(_Snake.Head, _Fruits.ToArray()))
+                {
+                    consumeFruit();       
+                }
+                
                 _Pritner.Print(ref _Board);
             }
         }

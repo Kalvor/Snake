@@ -1,10 +1,6 @@
 ﻿using Snake.Structures;
 using Snake.Tools.Interfaces;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Snake.Tools.Implementations
 {
@@ -25,7 +21,7 @@ namespace Snake.Tools.Implementations
 
         public bool CheckForSelfCollision(Structures.Snake snake)
         {
-            return false;
+            return snake.GetAllNodesLocations().GroupBy(c => c).Any(c => c.Count() > 1);
         }
     }
 }

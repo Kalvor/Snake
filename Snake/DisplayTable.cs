@@ -12,6 +12,10 @@
         public static char Empty => ' ';
 
         public static char SnakeBody => 'O';
+        public static char SnakeHeadUp => '^';
+        public static char SnakeHeadDown => 'v';
+        public static char SnakeHeadRight => '>';
+        public static char SnakeHeadLeft => '<';
         public static char Fruit => 'X'; 
     }
 }

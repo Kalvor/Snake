@@ -4,15 +4,15 @@ namespace Snake.Structures
 {
     public sealed class Snake
     {
-        private SnakeNode _Head { get; init; }
+        public SnakeNode Head { get; init; }
         public Snake(Point initialLocation)
         {
-            _Head = new SnakeNode(initialLocation);
+            Head = new SnakeNode(initialLocation);
         }
 
         public void AddNode()
         {
-            var currentNode = _Head;
+            var currentNode = Head;
             while(currentNode.NextNode is not null)
             {
                 currentNode = currentNode.NextNode;
@@ -21,7 +21,7 @@ namespace Snake.Structures
         }
         public IEnumerable<Point> GetAllNodesLocations()
         {
-            var currentNode = _Head;
+            var currentNode = Head;
             while(currentNode is not null)
             {
                 yield return currentNode.Location;

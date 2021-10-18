@@ -20,7 +20,7 @@ namespace Snake.Tools
                 Console.SetCursorPosition(
                     InitialCurosrPosition.XCord + field.Key.XCord, 
                     InitialCurosrPosition.YCord + field.Key.YCord);
-                Console.Write(field.Value.GetChar());
+                Console.Write(field.Value.CharToPrint);
                 field.Value.NeedsRefreshing = false;
             }
         }

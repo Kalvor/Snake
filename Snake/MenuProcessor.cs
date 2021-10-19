@@ -8,15 +8,14 @@ namespace Snake
 {
     public sealed class MenuProcessor
     {
-        private readonly IMenuPrinter _Printer;
+        private readonly Printer _Printer;
         public MenuProcessor()
         {
-            _Printer = new MenuPrinter();
+            _Printer = new Printer(new(0,0));
         }
         public void InitializeMenu()
         {
-            _Printer.PrintHeader("SNAKE GAME","By Krzysztof Jadczak");
-            _Printer.PrintMenuOptions();
+            _Printer.SelectText(DisplayTable.HeaderText_1);
         }
         public GameConfiguration ReadConfiguraiton() 
         {
@@ -28,9 +27,7 @@ namespace Snake
                 key = Console.ReadKey(true).Key;
                 if (key == ConsoleKey.DownArrow && iterator < difficulties.Length-1) iterator++;
                 if (key == ConsoleKey.UpArrow && iterator>0) iterator--;
-                _Printer.PrintMenuOptions(difficulties[iterator]);
             }
-            _Printer.ClearRow(4);
             return new GameConfiguration
             {
                 BoardHeight = 10,

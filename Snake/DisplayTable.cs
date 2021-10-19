@@ -16,7 +16,25 @@
         public static DisplayField SnakeHeadDown => new('v',System.ConsoleColor.Green);
         public static DisplayField SnakeHeadRight => new('>',System.ConsoleColor.Green);
         public static DisplayField SnakeHeadLeft => new('<',System.ConsoleColor.Green);
-        public static DisplayField Fruit => new('x',System.ConsoleColor.Red); 
+        public static DisplayField Fruit => new('x',System.ConsoleColor.Red);
+
+        public static DisplayText HeaderText_1 => new("Snake Game", System.ConsoleColor.DarkRed, System.ConsoleColor.Black, new(0,1));
+        public static DisplayText HeaderText_2 => new("By KrzysztofJadczak", System.ConsoleColor.DarkRed, System.ConsoleColor.Black,new(0,2));
+        public static DisplayText SelectDifficultyInfo => new("Please select Difficulty...", System.ConsoleColor.DarkRed, System.ConsoleColor.Black,new(0,4));
+    }
+    public class DisplayText
+    {
+        public string StringToPrint { get; set; }
+        public System.ConsoleColor Color { get; set; }
+        public System.ConsoleColor BackgroundColor { get; set; }
+        public Point Location { get; set; }
+        public DisplayText(string stringToPrint, System.ConsoleColor color, System.ConsoleColor backgroundColor, Point location)
+        {
+            StringToPrint = stringToPrint;
+            Color = color;
+            BackgroundColor = backgroundColor;
+            Location = location;
+        }
     }
     public class DisplayField
     {

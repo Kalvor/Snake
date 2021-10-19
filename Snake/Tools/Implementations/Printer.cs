@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using Snake.Tools.Interfaces;
+using Snake.Enums;
 
 namespace Snake.Tools.Implementations
 {
@@ -28,18 +29,45 @@ namespace Snake.Tools.Implementations
 
         public void PrintHeader(params string[] headerTexts)
         {
-            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             for(int i=0;i<headerTexts.Length;i++)
             {
-                Console.SetCursorPosition((Console.WindowWidth - headerTexts[i].Length) / 2, Console.CursorTop + 1 + i);
+                Console.SetCursorPosition((Console.WindowWidth - headerTexts[i].Length) / 2, 1 + i);
                 Console.Write(headerTexts[i]);
             }
         }
 
 
-        public void PrintMenuOptions()
+        public void PrintMenuOptions(Difficulty? selectedDifficulty = null)
         {
-            
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.BackgroundColor = ConsoleColor.Black;
+            string info = $"Please select Difficulty...";
+            Console.SetCursorPosition((Console.WindowWidth - info.Length) / 2, 4);
+            Console.WriteLine(info);
+
+            var allDifficulties = Enum.GetValues<Difficulty>();
+            for (int i = 0; i < allDifficulties.Length; i++)
+            {
+                if(selectedDifficulty != null && selectedDifficulty == allDifficulties[i])
+                {
+                    Console.BackgroundColor = ConsoleColor.Gray;
+                }
+                else
+                {
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+
+                switch (allDifficulties[i])
+                {
+                    case Difficulty.EASY: { Console.ForegroundColor = ConsoleColor.DarkGreen; }; break;
+                    case Difficulty.MEDIUM: { Console.ForegroundColor = ConsoleColor.DarkYellow; }; break;
+                    case Difficulty.HARD: { Console.ForegroundColor = ConsoleColor.DarkRed; }; break;
+                }
+
+                Console.SetCursorPosition((Console.WindowWidth - allDifficulties[i].ToString().Length) / 2, 5+i);
+                Console.Write(allDifficulties[i].ToString());
+            }
         }
 
         public void PrintPlayAgainOption()

@@ -15,7 +15,6 @@ namespace Snake.Tools.Implementations
 
         public void Print(ref Board board)
         {
-            Console.CursorVisible = false;
             foreach(var field in board.Fields.Where(c=>c.Value.NeedsRefreshing))
             {
                 Console.SetCursorPosition(
@@ -24,6 +23,33 @@ namespace Snake.Tools.Implementations
                 Console.Write(field.Value.CharToPrint);
                 field.Value.NeedsRefreshing = false;
             }
+        }
+
+        public void PrintHeader(params string[] headerTexts)
+        {
+            for(int i=0;i<headerTexts.Length;i++)
+            {
+                Console.SetCursorPosition((Console.WindowWidth - headerTexts[i].Length) / 2, Console.CursorTop + 1 + i);
+                Console.Write(headerTexts[i]);
+            }     
+        }
+
+
+        public void PrintMenuOptions()
+        {
+            
+        }
+
+        public void PrintPlayAgainOption()
+        {
+        }
+
+        public void PrintWinScreen()
+        {
+        }
+
+        public void PrintLoseScreen()
+        {
         }
     }
 }

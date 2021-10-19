@@ -6,5 +6,10 @@ namespace Snake.Tools.Interfaces
     {
         Point InitialCurosrPosition { get; init; }
         void Print(ref Board board);
+        void PrintHeader(params string[] headerTexts);
+        void PrintMenuOptions();
+        void PrintPlayAgainOption();
+        void PrintWinScreen();
+        void PrintLoseScreen();
     }
 }

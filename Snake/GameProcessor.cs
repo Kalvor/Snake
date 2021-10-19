@@ -24,19 +24,19 @@ namespace Snake
         private Direction _CurrentDirection;
 
         private readonly CancellationTokenSource _Cts;
-        public GameProcessor(int boardWidth, int boardHeight, int initialCursorLeft, int initialCursorTop, Difficulty difficulty)
+        public GameProcessor(GameConfiguration configuration, Point initialCursorPosition)
         {
             _Cts = new CancellationTokenSource();
-            _Board = new Board(boardWidth, boardHeight);
-            _Pritner = new Printer(new(initialCursorLeft, initialCursorTop));
+            _Board = new Board(configuration.BoardWidth, configuration.BoardHeight);
+            _Pritner = new Printer(initialCursorPosition);
             _FruitSpawner = new FruitSpawner();
             _SnakeMover = new SnakeMover();
             _CollisionDetector = new CollisionDetector();
 
-            _Difficulty = difficulty;
+            _Difficulty = configuration.Difficulty;
             _CurrentDirection = Direction.NONE;
 
-            _Snake = new Structures.Snake(new(boardWidth / 2, boardHeight / 2));
+            _Snake = new Structures.Snake(new(configuration.BoardWidth / 2, configuration.BoardHeight / 2));
             _Snake.AddNode();
             _Snake.AddNode();
             _Snake.AddNode();
@@ -68,7 +68,7 @@ namespace Snake
                         's' => Direction.DOWN,
                         'a' => Direction.LEFT,
                         'd' => Direction.RIGHT,
-                         _  => Direction.NONE
+                         _  => _CurrentDirection
                     };
                 }
             }
@@ -80,7 +80,8 @@ namespace Snake
             {
                 await Task.Delay(intervalMs,cancellationToken);
                 _SnakeMover.MoveSnake(ref _Snake, _CurrentDirection, ref _Board);
-                if (_CollisionDetector.CheckForSelfCollision(_Snake) || _CollisionDetector.CheckForBorderCollision(_Snake.Head, _Board))
+                if (_CollisionDetector.CheckForSelfCollision(_Snake) || 
+                    _CollisionDetector.CheckForBorderCollision(_Snake.Head, _Board))
                 {
                     _Cts.Cancel();
                 }

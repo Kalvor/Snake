@@ -17,11 +17,11 @@ namespace Snake.Structures
             {
                 for(int j=0;j<width;j++)
                 { 
-                    Fields.Add(new(j,i), new BoardField(GetCharToPrint(j, i)));
+                    Fields.Add(new(j,i), new BoardField(getFieldToPrint(j, i)));
                 }
             }
         }
-        private char GetCharToPrint(int currentWidth,int currentHeight)
+        private DisplayField getFieldToPrint(int currentWidth,int currentHeight)
         {
             if (currentHeight == 0 && currentWidth == 0)                    return DisplayTable.BoardLeftTopCorner;
             if (currentHeight == _Height - 1 && currentWidth == 0)          return DisplayTable.BoardLeftBottomCorner;
@@ -36,21 +36,31 @@ namespace Snake.Structures
 
     public sealed class BoardField
     {
-        public char CharToPrint { 
+        public char CharToPrint 
+        { 
             get
             {
                 return _charToPrint;
             }
         }
-        private char _charToPrint { get; set; }
-        public bool NeedsRefreshing { get; set; }
-        public BoardField(char charToPrint)
+        public ConsoleColor Color
         {
-            this.SetChar(charToPrint);
+            get
+            {
+                return _color;
+            }
         }
-        public void SetChar(char charToPrint)
+        private char _charToPrint { get; set; }
+        private ConsoleColor _color { get; set; }
+        public bool NeedsRefreshing { get; set; }
+        public BoardField(DisplayField field)
         {
-            _charToPrint = charToPrint;
+            this.SetField(field);
+        }
+        public void SetField(DisplayField field)
+        {
+            _charToPrint = field.CharToPrint;
+            _color = field.Color;
             NeedsRefreshing = true;
         }
     }

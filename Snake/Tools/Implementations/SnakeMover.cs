@@ -20,25 +20,25 @@ namespace Snake.Tools.Implementations
                 case Direction.DOWN:
                     {
                         snake.Head.Location = new(snake.Head.Location.XCord, snake.Head.Location.YCord + 1);
-                        board.Fields[snake.Head.Location].SetChar(DisplayTable.SnakeHeadDown);
+                        board.Fields[snake.Head.Location].SetField(DisplayTable.SnakeHeadDown);
                     };
                     break;
                 case Direction.UP:
                     {
                         snake.Head.Location = new(snake.Head.Location.XCord, snake.Head.Location.YCord - 1);
-                        board.Fields[snake.Head.Location].SetChar(DisplayTable.SnakeHeadUp);
+                        board.Fields[snake.Head.Location].SetField(DisplayTable.SnakeHeadUp);
                     };
                     break;
                 case Direction.RIGHT:
                     {
                         snake.Head.Location = new(snake.Head.Location.XCord + 1, snake.Head.Location.YCord);
-                        board.Fields[snake.Head.Location].SetChar(DisplayTable.SnakeHeadRight);
+                        board.Fields[snake.Head.Location].SetField(DisplayTable.SnakeHeadRight);
                     };
                     break;
                 case Direction.LEFT:
                     {
                         snake.Head.Location = new(snake.Head.Location.XCord - 1, snake.Head.Location.YCord);
-                        board.Fields[snake.Head.Location].SetChar(DisplayTable.SnakeHeadLeft);
+                        board.Fields[snake.Head.Location].SetField(DisplayTable.SnakeHeadLeft);
                     }; break;
             }
         }
@@ -50,10 +50,10 @@ namespace Snake.Tools.Implementations
             }
             else
             {
-                board.Fields[nodeToMove.Location].SetChar(DisplayTable.Empty);
+                board.Fields[nodeToMove.Location].SetField(DisplayTable.Empty);
             }
             nodeToMove.Location = parentNodeLocation;
-            board.Fields[nodeToMove.Location].SetChar(DisplayTable.SnakeBody);
+            board.Fields[nodeToMove.Location].SetField(DisplayTable.SnakeBody);
 
         }
 

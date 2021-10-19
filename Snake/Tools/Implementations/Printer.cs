@@ -17,6 +17,7 @@ namespace Snake.Tools.Implementations
         {
             foreach(var field in board.Fields.Where(c=>c.Value.NeedsRefreshing))
             {
+                Console.ForegroundColor = field.Value.Color;
                 Console.SetCursorPosition(
                     InitialCurosrPosition.XCord + field.Key.XCord, 
                     InitialCurosrPosition.YCord + field.Key.YCord);
@@ -27,11 +28,12 @@ namespace Snake.Tools.Implementations
 
         public void PrintHeader(params string[] headerTexts)
         {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             for(int i=0;i<headerTexts.Length;i++)
             {
                 Console.SetCursorPosition((Console.WindowWidth - headerTexts[i].Length) / 2, Console.CursorTop + 1 + i);
                 Console.Write(headerTexts[i]);
-            }     
+            }
         }
 
 

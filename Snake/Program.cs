@@ -1,8 +1,4 @@
-﻿using Snake.Structures;
-using Snake.Tools;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace Snake
 {
@@ -12,6 +8,7 @@ namespace Snake
         {
             Console.Clear();
             Console.CursorVisible = false;
+
             var menuProcessor = new MenuProcessor();
             menuProcessor.InitializeMenu();
             var configuration = menuProcessor.ReadConfiguraiton();

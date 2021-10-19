@@ -10,12 +10,12 @@ namespace Snake.Tools.Implementations
         public Fruit SpawnFruit(ref Board board)
         {
             var allowedFields = board.Fields
-                .Where(c => c.Value.CharToPrint == DisplayTable.Empty);
+                .Where(c => c.Value.CharToPrint == DisplayTable.Empty.CharToPrint);
             var fieldToSpawnFruitOn = allowedFields
                 .OrderBy(c => Guid.NewGuid())
                 .Take(1)
                 .First();
-            fieldToSpawnFruitOn.Value.SetChar(DisplayTable.Fruit);
+            fieldToSpawnFruitOn.Value.SetField(DisplayTable.Fruit);
 
             return new Fruit(fieldToSpawnFruitOn.Key);
         }

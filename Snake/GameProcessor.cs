@@ -15,7 +15,7 @@ namespace Snake
         private Structures.Snake _Snake;
         private List<Fruit> _Fruits;
 
-        private readonly IPrinter _Pritner;
+        private readonly IBoardPrinter _Pritner;
         private readonly IFruitSpawner _FruitSpawner;
         private readonly ISnakeMover _SnakeMover;
         private readonly ICollisionDetector _CollisionDetector;
@@ -28,7 +28,7 @@ namespace Snake
         {
             _Cts = new CancellationTokenSource();
             _Board = new Board(configuration.BoardWidth, configuration.BoardHeight);
-            _Pritner = new Printer(initialCursorPosition);
+            _Pritner = new BoardPrinter(initialCursorPosition);
             _FruitSpawner = new FruitSpawner();
             _SnakeMover = new SnakeMover();
             _CollisionDetector = new CollisionDetector();

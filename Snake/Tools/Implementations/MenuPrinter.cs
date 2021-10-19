@@ -1,36 +1,19 @@
-﻿using Snake.Structures;
+﻿using Snake.Enums;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Snake.Tools.Interfaces;
-using Snake.Enums;
 
 namespace Snake.Tools.Implementations
 {
-    public sealed class Printer : IPrinter
+    public sealed class MenuPrinter : IMenuPrinter
     {
-        public Point InitialCurosrPosition { get; init; }
-        public Printer(Point initialCurosrPosition)
-        {
-            InitialCurosrPosition = initialCurosrPosition;
-        }
-
-        public void Print(ref Board board)
-        {
-            foreach(var field in board.Fields.Where(c=>c.Value.NeedsRefreshing))
-            {
-                Console.ForegroundColor = field.Value.Color;
-                Console.SetCursorPosition(
-                    InitialCurosrPosition.XCord + field.Key.XCord, 
-                    InitialCurosrPosition.YCord + field.Key.YCord);
-                Console.Write(field.Value.CharToPrint);
-                field.Value.NeedsRefreshing = false;
-            }
-        }
-
         public void PrintHeader(params string[] headerTexts)
         {
             Console.ForegroundColor = ConsoleColor.DarkMagenta;
-            for(int i=0;i<headerTexts.Length;i++)
+            for (int i = 0; i < headerTexts.Length; i++)
             {
                 Console.SetCursorPosition((Console.WindowWidth - headerTexts[i].Length) / 2, 1 + i);
                 Console.Write(headerTexts[i]);
@@ -49,15 +32,6 @@ namespace Snake.Tools.Implementations
             var allDifficulties = Enum.GetValues<Difficulty>();
             for (int i = 0; i < allDifficulties.Length; i++)
             {
-                if(selectedDifficulty != null && selectedDifficulty == allDifficulties[i])
-                {
-                    Console.BackgroundColor = ConsoleColor.Gray;
-                }
-                else
-                {
-                    Console.BackgroundColor = ConsoleColor.Black;
-                }
-
                 switch (allDifficulties[i])
                 {
                     case Difficulty.EASY: { Console.ForegroundColor = ConsoleColor.DarkGreen; }; break;
@@ -65,7 +39,16 @@ namespace Snake.Tools.Implementations
                     case Difficulty.HARD: { Console.ForegroundColor = ConsoleColor.DarkRed; }; break;
                 }
 
-                Console.SetCursorPosition((Console.WindowWidth - allDifficulties[i].ToString().Length) / 2, 5+i);
+                Console.SetCursorPosition((Console.WindowWidth - allDifficulties.Max(c => c.ToString().Length).ToString().Length - 8) / 2, 6 + i);
+                if (selectedDifficulty != null && selectedDifficulty == allDifficulties[i])
+                {
+                    Console.Write(">");
+                }
+                else
+                {
+                    Console.WriteLine(" ");
+                }
+                Console.SetCursorPosition((Console.WindowWidth - allDifficulties[i].ToString().Length) / 2, 6 + i);
                 Console.Write(allDifficulties[i].ToString());
             }
         }
@@ -80,6 +63,12 @@ namespace Snake.Tools.Implementations
 
         public void PrintLoseScreen()
         {
+        }
+
+        public void ClearRow(int yIndex)
+        {
+            Console.SetCursorPosition(0, yIndex);
+            Console.Write(new string(' ', Console.WindowWidth));
         }
     }
 }

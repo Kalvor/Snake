@@ -8,10 +8,10 @@ namespace Snake
 {
     public sealed class MenuProcessor
     {
-        private readonly IPrinter _Printer;
+        private readonly IMenuPrinter _Printer;
         public MenuProcessor()
         {
-            _Printer = new Printer(new(0,0));
+            _Printer = new MenuPrinter();
         }
         public void InitializeMenu()
         {
@@ -30,7 +30,7 @@ namespace Snake
                 if (key == ConsoleKey.UpArrow && iterator>0) iterator--;
                 _Printer.PrintMenuOptions(difficulties[iterator]);
             }
-
+            _Printer.ClearRow(4);
             return new GameConfiguration
             {
                 BoardHeight = 10,

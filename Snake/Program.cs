@@ -11,7 +11,8 @@ namespace Snake
 
             var menuProcessor = new MenuProcessor();
             menuProcessor.InitializeMenu();
-            var configuration = menuProcessor.ReadConfiguraiton();
+            var configuration = menuProcessor.ReadConfiguration();
+            menuProcessor.ClearMenu();
 
             var gameProcessor = new GameProcessor(
                 configuration, 

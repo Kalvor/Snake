@@ -27,6 +27,7 @@ namespace Snake.Structures
         public static DisplayText DifficultyEasy => DisplayText.AtCenter("EASY", ConsoleColor.Green, ConsoleColor.DarkGray,6);
         public static DisplayText DifficultyMedium => DisplayText.AtCenter("MEDIUM", ConsoleColor.Yellow, ConsoleColor.DarkGray, 7);
         public static DisplayText DifficultyHard => DisplayText.AtCenter("HARD", ConsoleColor.Red, ConsoleColor.DarkGray, 8);
+
     }
 
     public record DisplayText

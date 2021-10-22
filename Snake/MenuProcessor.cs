@@ -12,6 +12,7 @@ namespace Snake
         {
             _Printer = new Printer(new(0,0));
         }
+
         public void InitializeMenu()
         {
             _Printer.PrintText(DisplayTable.HeaderText_1);
@@ -49,8 +50,8 @@ namespace Snake
 
             return new GameConfiguration
             {
-                BoardHeight = 10,
-                BoardWidth = 20,
+                BoardHeight = 20,
+                BoardWidth = 30,
                 Difficulty = difficulties[iterator]
             };
         }
@@ -60,6 +61,10 @@ namespace Snake
             _Printer.ClearText(DisplayTable.DifficultyEasy);
             _Printer.ClearText(DisplayTable.DifficultyMedium);
             _Printer.ClearText(DisplayTable.DifficultyHard);
+        }
+        public void PrintResultScreen(GameResult result)
+        {
+
         }
 
         private void printDifficultyOptions(Difficulty selectedDifficulty)

@@ -27,6 +27,17 @@ namespace Snake.Tools.Implementations
                 field.Value.NeedsRefreshing = false;
             }
         }
+        public void ClearBoard(ref Board board)
+        {
+            foreach (var field in board.Fields)
+            {
+                Console.BackgroundColor = ConsoleColor.Black;
+                Console.SetCursorPosition(
+                    InitialBoardPosition.XCord + field.Key.XCord,
+                    InitialBoardPosition.YCord + field.Key.YCord);
+                Console.Write(" ");
+            }
+        }
 
         public void PrintText(DisplayText text)
         {
@@ -51,5 +62,6 @@ namespace Snake.Tools.Implementations
             Console.SetCursorPosition(text.Location.XCord, text.Location.YCord);
             Console.Write(text.StringToPrint);
         }
+
     }
 }

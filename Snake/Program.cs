@@ -17,7 +17,9 @@ namespace Snake
             var gameProcessor = new GameProcessor(
                 configuration, 
                 new((Console.WindowWidth - configuration.BoardWidth) / 2, 5));
-            gameProcessor.Start();
+            var result = gameProcessor.Start();
+
+            menuProcessor.PrintResultScreen(result);
         }
     }
 }

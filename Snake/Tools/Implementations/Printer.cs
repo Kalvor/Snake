@@ -18,12 +18,12 @@ namespace Snake.Tools.Implementations
         {
             foreach(var field in board.Fields.Where(c=>c.Value.NeedsRefreshing))
             {
-                Console.ForegroundColor = field.Value.Color;
+                Console.ForegroundColor = field.Value.Field.Color;
                 Console.BackgroundColor = ConsoleColor.Black;
                 Console.SetCursorPosition(
                     InitialBoardPosition.XCord + field.Key.XCord, 
                     InitialBoardPosition.YCord + field.Key.YCord);
-                Console.Write(field.Value.CharToPrint);
+                Console.Write(field.Value.Field.CharToPrint);
                 field.Value.NeedsRefreshing = false;
             }
         }

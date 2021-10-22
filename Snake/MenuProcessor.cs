@@ -1,7 +1,6 @@
 ﻿using Snake.Enums;
 using Snake.Structures;
 using Snake.Tools.Implementations;
-using Snake.Tools.Interfaces;
 using System;
 
 namespace Snake
@@ -15,7 +14,7 @@ namespace Snake
         }
         public void InitializeMenu()
         {
-            _Printer.SelectText(DisplayTable.HeaderText_1);
+            _Printer.PrintText(DisplayTable.HeaderText_1);
         }
         public GameConfiguration ReadConfiguraiton() 
         {

@@ -36,22 +36,7 @@ namespace Snake.Structures
 
     public sealed class BoardField
     {
-        public char CharToPrint 
-        { 
-            get
-            {
-                return _charToPrint;
-            }
-        }
-        public ConsoleColor Color
-        {
-            get
-            {
-                return _color;
-            }
-        }
-        private char _charToPrint { get; set; }
-        private ConsoleColor _color { get; set; }
+        public DisplayField Field { get; set; }
         public bool NeedsRefreshing { get; set; }
         public BoardField(DisplayField field)
         {
@@ -59,8 +44,7 @@ namespace Snake.Structures
         }
         public void SetField(DisplayField field)
         {
-            _charToPrint = field.CharToPrint;
-            _color = field.Color;
+            Field = field;
             NeedsRefreshing = true;
         }
     }

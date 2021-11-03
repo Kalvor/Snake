@@ -27,9 +27,9 @@ namespace Snake.Structures
             if (currentHeight == _Height - 1 && currentWidth == 0)          return DisplayTable.BoardLeftBottomCorner;
             if (currentHeight == 0 && currentWidth == _Width - 1)           return DisplayTable.BoardRightTopCorner;
             if (currentHeight == _Height - 1 && currentWidth == _Width - 1) return DisplayTable.BoardRightBottomCorner;
-            if (currentHeight == 0) return DisplayTable.BoardTopBorder;
-            if (currentHeight == _Height -1) return DisplayTable.BoardTopBorder;
-            if (currentWidth == 0 || currentWidth == _Width-1) return DisplayTable.BoardSideBorder;
+            if (currentHeight == 0)                                         return DisplayTable.BoardTopBorder;
+            if (currentHeight == _Height -1)                                return DisplayTable.BoardTopBorder;
+            if (currentWidth == 0 || currentWidth == _Width-1)              return DisplayTable.BoardSideBorder;
             return DisplayTable.Empty;
         }
     }

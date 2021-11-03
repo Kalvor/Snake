@@ -28,6 +28,10 @@ namespace Snake.Structures
         public static DisplayText DifficultyMedium => DisplayText.AtCenter("MEDIUM", ConsoleColor.Yellow, ConsoleColor.DarkGray, 7);
         public static DisplayText DifficultyHard => DisplayText.AtCenter("HARD", ConsoleColor.Red, ConsoleColor.DarkGray, 8);
 
+        public static DisplayText Win => DisplayText.AtCenter("You Won. Congratulations", ConsoleColor.Green, ConsoleColor.DarkGray, 10); 
+        public static DisplayText Lose => DisplayText.AtCenter("You Lose. Try again..", ConsoleColor.Green, ConsoleColor.DarkGray, 10);
+        public static DisplayText PlayAgainKeyToPressInfo => DisplayText.AtCenter("Press ENTER to play again", ConsoleColor.Yellow, ConsoleColor.DarkGray, 13);
+        public static DisplayText QuitKeyToPressInfo => DisplayText.AtCenter("Press ESC to quit", ConsoleColor.Yellow, ConsoleColor.DarkGray, 14);
     }
 
     public record DisplayText

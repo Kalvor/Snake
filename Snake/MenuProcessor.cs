@@ -1,13 +1,14 @@
 ﻿using Snake.Enums;
 using Snake.Structures;
 using Snake.Tools.Implementations;
+using Snake.Tools.Interfaces;
 using System;
 
 namespace Snake
 {
     public sealed class MenuProcessor
     {
-        private readonly Printer _Printer;
+        private readonly IPrinter _Printer;
         public MenuProcessor()
         {
             _Printer = new Printer(new(0,0));
@@ -50,21 +51,36 @@ namespace Snake
 
             return new GameConfiguration
             {
-                BoardHeight = 20,
-                BoardWidth = 30,
+                BoardHeight = 10,
+                BoardWidth = 20,
                 Difficulty = difficulties[iterator]
             };
         }
+       
         public void ClearMenu()
         {
             _Printer.ClearText(DisplayTable.SelectDifficultyInfo);
             _Printer.ClearText(DisplayTable.DifficultyEasy);
             _Printer.ClearText(DisplayTable.DifficultyMedium);
             _Printer.ClearText(DisplayTable.DifficultyHard);
+            _Printer.ClearText(DisplayTable.Win);
+            _Printer.ClearText(DisplayTable.Lose);
+            _Printer.ClearText(DisplayTable.PlayAgainKeyToPressInfo);
+            _Printer.ClearText(DisplayTable.QuitKeyToPressInfo);
         }
         public void PrintResultScreen(GameResult result)
         {
-
+            switch (result)
+            {
+                case GameResult.WIN:
+                    _Printer.PrintText(DisplayTable.Win);
+                    break;
+                case GameResult.LOSE:
+                    _Printer.PrintText(DisplayTable.Lose);
+                    break;
+            }
+            _Printer.PrintText(DisplayTable.PlayAgainKeyToPressInfo);
+            _Printer.PrintText(DisplayTable.QuitKeyToPressInfo);
         }
 
         private void printDifficultyOptions(Difficulty selectedDifficulty)

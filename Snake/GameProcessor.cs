@@ -59,7 +59,7 @@ namespace Snake
             _ = beginMovementCycle(getMsInterval(_Difficulty), _Cts.Token);
             while(_Cts.Token.IsCancellationRequested == false)
             {
-                processKey(System.Console.ReadKey(true));            
+                processKey(waitForKey());            
             }
             _Pritner.ClearBoard(ref _Board);
             return _Result;
@@ -88,6 +88,20 @@ namespace Snake
                 
                 _Pritner.PrintBoard(ref _Board);
             }
+        }
+        private System.ConsoleKeyInfo waitForKey()
+        {
+            int delay = 0;
+            while(delay<50)
+            {
+                if(System.Console.KeyAvailable)
+                {
+                    return System.Console.ReadKey(true);
+                }
+                Thread.Sleep(50);
+                delay += 50;
+            }
+            return new System.ConsoleKeyInfo();
         }
         private void processKey(System.ConsoleKeyInfo pressedKey)
         {

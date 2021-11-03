@@ -25,6 +25,7 @@ namespace Snake
         private Direction _CurrentDirection;
 
         private readonly CancellationTokenSource _Cts;
+
         public GameProcessor(GameConfiguration configuration, Point initialCursorPosition)
         {
             _Cts = new CancellationTokenSource();
@@ -52,28 +53,13 @@ namespace Snake
             };
 
         }
+
         public GameResult Start()
         {
             _ = beginMovementCycle(getMsInterval(_Difficulty), _Cts.Token);
             while(_Cts.Token.IsCancellationRequested == false)
             {
-                var pressedChar = System.Console.ReadKey(true).KeyChar;
-                if(pressedChar == 'q')
-                {
-                    _Cts.Cancel();
-                    _Result = GameResult.STOPED; 
-                }
-                else
-                {
-                    _CurrentDirection = pressedChar switch
-                    {
-                        'w' => Direction.UP,
-                        's' => Direction.DOWN,
-                        'a' => Direction.LEFT,
-                        'd' => Direction.RIGHT,
-                         _  => _CurrentDirection
-                    };
-                }
+                processKey(System.Console.ReadKey(true));            
             }
             _Pritner.ClearBoard(ref _Board);
             return _Result;
@@ -103,7 +89,40 @@ namespace Snake
                 _Pritner.PrintBoard(ref _Board);
             }
         }
-
+        private void processKey(System.ConsoleKeyInfo pressedKey)
+        {
+            if(pressedKey.Key == System.ConsoleKey.Escape)
+            {
+                _Result = GameResult.STOPED;
+                _Cts.Cancel();
+            }
+            else
+            {
+                var requestedDirection = pressedKey.Key switch
+                {
+                    System.ConsoleKey.DownArrow => Direction.DOWN,
+                    System.ConsoleKey.UpArrow => Direction.UP,
+                    System.ConsoleKey.RightArrow => Direction.RIGHT,
+                    System.ConsoleKey.LeftArrow => Direction.LEFT,
+                    _ => _CurrentDirection
+                };
+                if(!isDirectionOpposite(_CurrentDirection,requestedDirection))
+                {
+                    _CurrentDirection = requestedDirection;
+                }
+            }
+        }
+        private bool isDirectionOpposite(Direction currentDirection, Direction requestedDirection)
+        {
+            return (currentDirection, requestedDirection) switch
+            {
+                (Direction.RIGHT,Direction.LEFT) or
+                (Direction.LEFT,Direction.RIGHT) or
+                (Direction.DOWN,Direction.UP) or
+                (Direction.UP,Direction.DOWN) => true,
+                _ => false
+            };
+        }
         private int getMsInterval(Difficulty difficulty)
         {
             return difficulty switch

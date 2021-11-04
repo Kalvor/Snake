@@ -19,6 +19,24 @@ namespace Snake.Structures
             }
             currentNode.NextNode = new SnakeNode(new Point(currentNode.Location.XCord-1,currentNode.Location.YCord));
         }
+        public void AddNode(Point nodeLocation)
+        {
+            var currentNode = Head;
+            while (currentNode.NextNode is not null)
+            {
+                currentNode = currentNode.NextNode;
+            }
+            currentNode.NextNode = new SnakeNode(nodeLocation);
+        }
+        public SnakeNode GetTail()
+        {
+            var currentNode = Head;
+            while (currentNode.NextNode is not null)
+            {
+                currentNode = currentNode.NextNode;
+            }
+            return currentNode;
+        }
         public IEnumerable<Point> GetAllNodesLocations()
         {
             var currentNode = Head;

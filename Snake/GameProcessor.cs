@@ -20,9 +20,8 @@ namespace Snake
         private readonly IFruitSpawner _FruitSpawner;
         private readonly ISnakeMover _SnakeMover;
         private readonly ICollisionDetector _CollisionDetector;
-
         private readonly Difficulty _Difficulty;
-        private Direction _CurrentDirection;
+        private volatile Direction _CurrentDirection;
 
         private readonly CancellationTokenSource _Cts;
 
@@ -70,22 +69,26 @@ namespace Snake
             while(cancellationToken.IsCancellationRequested == false)
             {
                 await Task.Delay(intervalMs,cancellationToken);
-                _SnakeMover.MoveSnake(ref _Snake, _CurrentDirection, ref _Board);
 
-                if (_CollisionDetector.CheckForSelfCollision(_Snake) || 
-                    _CollisionDetector.CheckForBorderCollision(_Snake.Head, _Board))
+                bool willFruitBeConsumed = _CollisionDetector.CheckForFruitCollisionInNextMove(_Snake.Head, _Fruits.ToArray(), _CurrentDirection);
+                if(willFruitBeConsumed)
                 {
-                    _Cts.Cancel();
-                    _Result = GameResult.LOSE;
-                }
-
-                if (_CollisionDetector.CheckForFruitCollision(_Snake.Head, _Fruits.ToArray()))
-                {
-                    _Snake.AddNode();
+                    var lastNodeLocation = _Snake.GetTail().Location;
+                    _SnakeMover.MoveSnake(ref _Snake, _CurrentDirection, ref _Board);
+                    _Snake.AddNode(lastNodeLocation);
                     _Fruits.Remove(_Fruits.FirstOrDefault(c => c.Location == _Snake.Head.Location));
                     _Fruits.Add(_FruitSpawner.SpawnFruit(ref _Board));
-                }   
-                
+                }
+                else
+                {
+                    _SnakeMover.MoveSnake(ref _Snake, _CurrentDirection, ref _Board);
+                    if (_CollisionDetector.CheckForSelfCollision(_Snake) ||
+                    _CollisionDetector.CheckForBorderCollision(_Snake.Head, _Board))
+                    {
+                        _Cts.Cancel();
+                        _Result = GameResult.LOSE;
+                    }
+                }         
                 _Pritner.PrintBoard(ref _Board);
             }
         }

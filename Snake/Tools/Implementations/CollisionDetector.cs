@@ -1,4 +1,5 @@
-﻿using Snake.Structures;
+﻿using Snake.Enums;
+using Snake.Structures;
 using Snake.Tools.Interfaces;
 using System.Linq;
 
@@ -14,9 +15,19 @@ namespace Snake.Tools.Implementations
                    snakeHead.Location.YCord == board.Fields.Max(c => c.Key.YCord);
         }
 
-        public bool CheckForFruitCollision(SnakeNode snakeHead, Fruit[] fruits)
+        public bool CheckForFruitCollisionInNextMove(SnakeNode snakeHead, Fruit[] fruits, Direction direction)
         {
-            return fruits.Any(c => c.Location == snakeHead.Location);
+            Point newHeadLocation = direction switch
+            {
+                Direction.UP => new(snakeHead.Location.XCord, snakeHead.Location.YCord - 1),
+                Direction.DOWN => new(snakeHead.Location.XCord, snakeHead.Location.YCord + 1),
+                Direction.LEFT => new(snakeHead.Location.XCord - 1, snakeHead.Location.YCord),
+                Direction.RIGHT => new(snakeHead.Location.XCord + 1, snakeHead.Location.YCord),
+                Direction.NONE => new(snakeHead.Location.XCord, snakeHead.Location.YCord),
+                _ => throw new System.Exception()
+            };
+            var isAnyFrutAtMovedHeadLocation = fruits.Any(c => c.Location == newHeadLocation);
+            return isAnyFrutAtMovedHeadLocation;
         }
 
         public bool CheckForSelfCollision(Structures.Snake snake)

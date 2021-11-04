@@ -14,7 +14,7 @@ namespace Snake.Tools.Implementations
             InitialBoardPosition = initialBoardPosition;
         }
 
-        public void PrintBoard(ref Board board)
+        public void PrintBoard(Board board)
         {
             foreach(var field in board.Fields.Where(c=>c.Value.NeedsRefreshing))
             {
@@ -27,7 +27,7 @@ namespace Snake.Tools.Implementations
                 field.Value.NeedsRefreshing = false;
             }
         }
-        public void ClearBoard(ref Board board)
+        public void ClearBoard(Board board)
         {
             foreach (var field in board.Fields)
             {

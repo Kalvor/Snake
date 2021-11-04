@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Snake.Structures
 {
@@ -7,7 +6,7 @@ namespace Snake.Structures
     {
         private int _Width { get; init; }
         private int _Height { get; init; }
-        public Dictionary<Point, BoardField> Fields { get; set; }
+        public Dictionary<Point, BoardField> Fields { get; init; }
         public Board(int width, int height)
         {
             _Width = width;
@@ -21,6 +20,7 @@ namespace Snake.Structures
                 }
             }
         }
+
         private DisplayField getFieldToPrint(int currentWidth,int currentHeight)
         {
             if (currentHeight == 0 && currentWidth == 0)                    return DisplayTable.BoardLeftTopCorner;
@@ -36,12 +36,13 @@ namespace Snake.Structures
 
     public sealed class BoardField
     {
-        public DisplayField Field { get; set; }
+        public DisplayField Field { get; private set; }
         public bool NeedsRefreshing { get; set; }
         public BoardField(DisplayField field)
         {
             this.SetField(field);
         }
+
         public void SetField(DisplayField field)
         {
             Field = field;

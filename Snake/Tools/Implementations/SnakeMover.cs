@@ -6,13 +6,13 @@ namespace Snake.Tools.Implementations
 {
     public sealed class SnakeMover : ISnakeMover
     {
-        public void MoveSnake(ref Structures.Snake snake, Direction direction, ref Board board)
+        public void MoveSnake(Structures.Snake snake, Direction direction, Board board)
         {
             if (direction == Direction.NONE) return;
 
             if (snake.Head.NextNode is not null)
             {
-                moveToSnakeNodeParentLocation(snake.Head.NextNode, snake.Head.Location, ref board);
+                moveToSnakeNodeParentLocation(snake.Head.NextNode, snake.Head.Location, board);
             }
 
             switch (direction)
@@ -42,11 +42,11 @@ namespace Snake.Tools.Implementations
                     }; break;
             }
         }
-        private void moveToSnakeNodeParentLocation(SnakeNode nodeToMove, Point parentNodeLocation, ref Board board)
+        private void moveToSnakeNodeParentLocation(SnakeNode nodeToMove, Point parentNodeLocation, Board board)
         {
             if (nodeToMove.NextNode is not null)
             {
-                moveToSnakeNodeParentLocation(nodeToMove.NextNode, nodeToMove.Location, ref board);
+                moveToSnakeNodeParentLocation(nodeToMove.NextNode, nodeToMove.Location, board);
             }
             else
             {

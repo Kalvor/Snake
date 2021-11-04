@@ -37,18 +37,16 @@ namespace Snake
             _Difficulty = configuration.Difficulty;
             _CurrentDirection = Direction.NONE;
 
-            _Snake = new Structures.Snake(new((configuration.BoardWidth / 2) - 1, configuration.BoardHeight / 2));
-            _Snake.AddNode();
-            _Snake.AddNode();
-            _Snake.AddNode();
-            _Snake.AddNode();
-            _SnakeMover.MoveSnake(ref _Snake, Direction.RIGHT, ref _Board);
+            Point initialSnakePosition = new((configuration.BoardWidth / 2) - 1, configuration.BoardHeight / 2);
+            _Snake = new Structures.Snake(initialSnakePosition, 3);
+      
+            _SnakeMover.MoveSnake(_Snake, Direction.RIGHT, _Board);
 
             _Fruits = new List<Fruit>()
             {
-                _FruitSpawner.SpawnFruit(ref _Board),
-                _FruitSpawner.SpawnFruit(ref _Board),
-                _FruitSpawner.SpawnFruit(ref _Board)
+                _FruitSpawner.SpawnFruit(_Board),
+                _FruitSpawner.SpawnFruit(_Board),
+                _FruitSpawner.SpawnFruit(_Board)
             };
 
         }
@@ -60,7 +58,7 @@ namespace Snake
             {
                 processKey(waitForKey());            
             }
-            _Pritner.ClearBoard(ref _Board);
+            _Pritner.ClearBoard(_Board);
             return _Result;
         }
 
@@ -74,14 +72,14 @@ namespace Snake
                 if(willFruitBeConsumed)
                 {
                     var lastNodeLocation = _Snake.GetTail().Location;
-                    _SnakeMover.MoveSnake(ref _Snake, _CurrentDirection, ref _Board);
+                    _SnakeMover.MoveSnake(_Snake, _CurrentDirection, _Board);
                     _Snake.AddNode(lastNodeLocation);
                     _Fruits.Remove(_Fruits.FirstOrDefault(c => c.Location == _Snake.Head.Location));
-                    _Fruits.Add(_FruitSpawner.SpawnFruit(ref _Board));
+                    _Fruits.Add(_FruitSpawner.SpawnFruit(_Board));
                 }
                 else
                 {
-                    _SnakeMover.MoveSnake(ref _Snake, _CurrentDirection, ref _Board);
+                    _SnakeMover.MoveSnake(_Snake, _CurrentDirection, _Board);
                     if (_CollisionDetector.CheckForSelfCollision(_Snake) ||
                     _CollisionDetector.CheckForBorderCollision(_Snake.Head, _Board))
                     {
@@ -89,7 +87,7 @@ namespace Snake
                         _Result = GameResult.LOSE;
                     }
                 }         
-                _Pritner.PrintBoard(ref _Board);
+                _Pritner.PrintBoard(_Board);
             }
         }
         private System.ConsoleKeyInfo waitForKey()

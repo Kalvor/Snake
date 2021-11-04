@@ -5,37 +5,23 @@ namespace Snake.Structures
     public sealed class Snake
     {
         public SnakeNode Head { get; init; }
-        public Snake(Point initialLocation)
+        public Snake(Point initialLocation, int numberOfSegments = 4)
         {
             Head = new SnakeNode(initialLocation);
+            for(int i=1;i<=numberOfSegments;i++)
+            {
+                AddNode(new(initialLocation.XCord - i, initialLocation.YCord));
+            }
         }
 
-        public void AddNode()
-        {
-            var currentNode = Head;
-            while(currentNode.NextNode is not null)
-            {
-                currentNode = currentNode.NextNode;
-            }
-            currentNode.NextNode = new SnakeNode(new Point(currentNode.Location.XCord-1,currentNode.Location.YCord));
-        }
         public void AddNode(Point nodeLocation)
         {
-            var currentNode = Head;
-            while (currentNode.NextNode is not null)
-            {
-                currentNode = currentNode.NextNode;
-            }
-            currentNode.NextNode = new SnakeNode(nodeLocation);
+            var lastNode = getLastNode();
+            lastNode.NextNode = new SnakeNode(nodeLocation);
         }
         public SnakeNode GetTail()
         {
-            var currentNode = Head;
-            while (currentNode.NextNode is not null)
-            {
-                currentNode = currentNode.NextNode;
-            }
-            return currentNode;
+            return getLastNode();
         }
         public IEnumerable<Point> GetAllNodesLocations()
         {
@@ -46,7 +32,18 @@ namespace Snake.Structures
                 currentNode = currentNode.NextNode;
             }
         }
+
+        private SnakeNode getLastNode()
+        {
+            var currentNode = Head;
+            while (currentNode.NextNode is not null)
+            {
+                currentNode = currentNode.NextNode;
+            }
+            return currentNode;
+        }
     }
+
     public sealed class SnakeNode
     {
         public Point Location { get; set; }

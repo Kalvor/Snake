@@ -23,14 +23,14 @@ namespace Snake.Structures
 
         private DisplayField getFieldToPrint(int currentWidth,int currentHeight)
         {
-            if (currentHeight == 0 && currentWidth == 0)                    return DisplayTable.BoardLeftTopCorner;
-            if (currentHeight == _Height - 1 && currentWidth == 0)          return DisplayTable.BoardLeftBottomCorner;
-            if (currentHeight == 0 && currentWidth == _Width - 1)           return DisplayTable.BoardRightTopCorner;
-            if (currentHeight == _Height - 1 && currentWidth == _Width - 1) return DisplayTable.BoardRightBottomCorner;
-            if (currentHeight == 0)                                         return DisplayTable.BoardTopBorder;
-            if (currentHeight == _Height -1)                                return DisplayTable.BoardTopBorder;
-            if (currentWidth == 0 || currentWidth == _Width-1)              return DisplayTable.BoardSideBorder;
-            return DisplayTable.Empty;
+            if (currentHeight == 0 && currentWidth == 0)                    return DisplayTable.Fields.BoardLeftTopCorner;
+            if (currentHeight == _Height - 1 && currentWidth == 0)          return DisplayTable.Fields.BoardLeftBottomCorner;
+            if (currentHeight == 0 && currentWidth == _Width - 1)           return DisplayTable.Fields.BoardRightTopCorner;
+            if (currentHeight == _Height - 1 && currentWidth == _Width - 1) return DisplayTable.Fields.BoardRightBottomCorner;
+            if (currentHeight == 0)                                         return DisplayTable.Fields.BoardTopBorder;
+            if (currentHeight == _Height -1)                                return DisplayTable.Fields.BoardTopBorder;
+            if (currentWidth == 0 || currentWidth == _Width-1)              return DisplayTable.Fields.BoardSideBorder;
+            return DisplayTable.Fields.Empty;
         }
     }
 

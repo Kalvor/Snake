@@ -16,12 +16,12 @@ namespace Snake
 
         public void InitializeMenu()
         {
-            _Printer.PrintText(DisplayTable.HeaderText_1);
-            _Printer.PrintText(DisplayTable.HeaderText_2);
-            _Printer.PrintText(DisplayTable.SelectDifficultyInfo);
-            _Printer.PrintText(DisplayTable.DifficultyEasy);
-            _Printer.PrintText(DisplayTable.DifficultyMedium);
-            _Printer.PrintText(DisplayTable.DifficultyHard);
+            _Printer.PrintText(DisplayTable.Texts.HeaderText_1);
+            _Printer.PrintText(DisplayTable.Texts.HeaderText_2);
+            _Printer.PrintText(DisplayTable.Texts.SelectDifficultyInfo);
+            _Printer.PrintText(DisplayTable.Texts.DifficultyEasy);
+            _Printer.PrintText(DisplayTable.Texts.DifficultyMedium);
+            _Printer.PrintText(DisplayTable.Texts.DifficultyHard);
         }
         public GameConfiguration ReadConfiguration() 
         {
@@ -59,28 +59,28 @@ namespace Snake
        
         public void ClearMenu()
         {
-            _Printer.ClearText(DisplayTable.SelectDifficultyInfo);
-            _Printer.ClearText(DisplayTable.DifficultyEasy);
-            _Printer.ClearText(DisplayTable.DifficultyMedium);
-            _Printer.ClearText(DisplayTable.DifficultyHard);
-            _Printer.ClearText(DisplayTable.Win);
-            _Printer.ClearText(DisplayTable.Lose);
-            _Printer.ClearText(DisplayTable.PlayAgainKeyToPressInfo);
-            _Printer.ClearText(DisplayTable.QuitKeyToPressInfo);
+            _Printer.ClearText(DisplayTable.Texts.SelectDifficultyInfo);
+            _Printer.ClearText(DisplayTable.Texts.DifficultyEasy);
+            _Printer.ClearText(DisplayTable.Texts.DifficultyMedium);
+            _Printer.ClearText(DisplayTable.Texts.DifficultyHard);
+            _Printer.ClearText(DisplayTable.Texts.Win);
+            _Printer.ClearText(DisplayTable.Texts.Lose);
+            _Printer.ClearText(DisplayTable.Texts.PlayAgainKeyToPressInfo);
+            _Printer.ClearText(DisplayTable.Texts.QuitKeyToPressInfo);
         }
         public void PrintResultScreen(GameResult result)
         {
             switch (result)
             {
                 case GameResult.WIN:
-                    _Printer.PrintText(DisplayTable.Win);
+                    _Printer.PrintText(DisplayTable.Texts.Win);
                     break;
                 case GameResult.LOSE:
-                    _Printer.PrintText(DisplayTable.Lose);
+                    _Printer.PrintText(DisplayTable.Texts.Lose);
                     break;
             }
-            _Printer.PrintText(DisplayTable.PlayAgainKeyToPressInfo);
-            _Printer.PrintText(DisplayTable.QuitKeyToPressInfo);
+            _Printer.PrintText(DisplayTable.Texts.PlayAgainKeyToPressInfo);
+            _Printer.PrintText(DisplayTable.Texts.QuitKeyToPressInfo);
         }
 
         private void printDifficultyOptions(Difficulty selectedDifficulty)
@@ -89,23 +89,23 @@ namespace Snake
             {
                 case Difficulty.EASY:
                     {
-                        _Printer.SelectText(DisplayTable.DifficultyEasy);
-                        _Printer.PrintText(DisplayTable.DifficultyMedium);
-                        _Printer.PrintText(DisplayTable.DifficultyHard);
+                        _Printer.SelectText(DisplayTable.Texts.DifficultyEasy);
+                        _Printer.PrintText(DisplayTable.Texts.DifficultyMedium);
+                        _Printer.PrintText(DisplayTable.Texts.DifficultyHard);
                     };
                     break;
                 case Difficulty.MEDIUM:
                     {
-                        _Printer.PrintText(DisplayTable.DifficultyEasy);
-                        _Printer.SelectText(DisplayTable.DifficultyMedium);
-                        _Printer.PrintText(DisplayTable.DifficultyHard);
+                        _Printer.PrintText(DisplayTable.Texts.DifficultyEasy);
+                        _Printer.SelectText(DisplayTable.Texts.DifficultyMedium);
+                        _Printer.PrintText(DisplayTable.Texts.DifficultyHard);
                     };
                     break;
                 case Difficulty.HARD:
                     {
-                        _Printer.PrintText(DisplayTable.DifficultyEasy);
-                        _Printer.PrintText(DisplayTable.DifficultyMedium);
-                        _Printer.SelectText(DisplayTable.DifficultyHard);
+                        _Printer.PrintText(DisplayTable.Texts.DifficultyEasy);
+                        _Printer.PrintText(DisplayTable.Texts.DifficultyMedium);
+                        _Printer.SelectText(DisplayTable.Texts.DifficultyHard);
                     };
                     break;
             }

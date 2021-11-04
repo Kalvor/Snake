@@ -3,4 +3,3 @@
 - Add dependency container, create console app with DI
 - Add info about how to move at game begining
 - Define board width and height based on dificulty
-- add wrapers for display texts and display fields at display table in order to call it like DisplayTable.Fields.smth or DisplayTable.Texts.myText

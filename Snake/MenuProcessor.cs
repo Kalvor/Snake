@@ -19,6 +19,7 @@ namespace Snake
             _Printer.PrintText(DisplayTable.Texts.HeaderText_1);
             _Printer.PrintText(DisplayTable.Texts.HeaderText_2);
             _Printer.PrintText(DisplayTable.Texts.SelectDifficultyInfo);
+            _Printer.PrintText(DisplayTable.Texts.NavigationInfo);
             _Printer.PrintText(DisplayTable.Texts.DifficultyEasy);
             _Printer.PrintText(DisplayTable.Texts.DifficultyMedium);
             _Printer.PrintText(DisplayTable.Texts.DifficultyHard);
@@ -67,6 +68,7 @@ namespace Snake
             _Printer.ClearText(DisplayTable.Texts.Lose);
             _Printer.ClearText(DisplayTable.Texts.PlayAgainKeyToPressInfo);
             _Printer.ClearText(DisplayTable.Texts.QuitKeyToPressInfo);
+            _Printer.ClearText(DisplayTable.Texts.NavigationInfo);
         }
         public void PrintResultScreen(GameResult result)
         {

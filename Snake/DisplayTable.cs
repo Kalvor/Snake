@@ -26,11 +26,13 @@ namespace Snake.Structures
         {
             public static DisplayText HeaderText_1 => DisplayText.AtCenter("Snake Game", ConsoleColor.DarkGreen, ConsoleColor.Black, 1);
             public static DisplayText HeaderText_2 => DisplayText.AtCenter("By Krzysztof Jadczak", ConsoleColor.DarkGreen, ConsoleColor.Black, 2);
-            public static DisplayText SelectDifficultyInfo => DisplayText.AtCenter("Please select Difficulty...", ConsoleColor.DarkGreen, ConsoleColor.Black, 4);
 
-            public static DisplayText DifficultyEasy => DisplayText.AtCenter("EASY", ConsoleColor.Green, ConsoleColor.DarkGray, 6);
-            public static DisplayText DifficultyMedium => DisplayText.AtCenter("MEDIUM", ConsoleColor.Yellow, ConsoleColor.DarkGray, 7);
-            public static DisplayText DifficultyHard => DisplayText.AtCenter("HARD", ConsoleColor.Red, ConsoleColor.DarkGray, 8);
+            public static DisplayText NavigationInfo => DisplayText.AtCenter($"You can navigate by pressing arrow keys", ConsoleColor.DarkGreen, ConsoleColor.White, 4);
+            public static DisplayText SelectDifficultyInfo => DisplayText.AtCenter("Please select Difficulty...", ConsoleColor.DarkGreen, ConsoleColor.Black, 5);
+
+            public static DisplayText DifficultyEasy => DisplayText.AtCenter("EASY", ConsoleColor.Green, ConsoleColor.DarkGray, 7);
+            public static DisplayText DifficultyMedium => DisplayText.AtCenter("MEDIUM", ConsoleColor.Yellow, ConsoleColor.DarkGray, 8);
+            public static DisplayText DifficultyHard => DisplayText.AtCenter("HARD", ConsoleColor.Red, ConsoleColor.DarkGray, 9);
 
             public static DisplayText Win => DisplayText.AtCenter("You Won. Congratulations", ConsoleColor.Green, ConsoleColor.DarkGray, 10);
             public static DisplayText Lose => DisplayText.AtCenter("You Lose. Try again..", ConsoleColor.Green, ConsoleColor.DarkGray, 10);

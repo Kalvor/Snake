@@ -1,5 +1,5 @@
 - Add winning conditions, when there is no place for fruit to spawn
 - Refactor processors and program, it smells
 - Add dependency container, create console app with DI
-- Add info about how to move at game begining
+
 - Define board width and height based on dificulty

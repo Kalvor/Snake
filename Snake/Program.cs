@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Snake.Tools.Implementations;
+using Snake.Tools.Interfaces;
 
 namespace Snake
 {
@@ -6,32 +8,25 @@ namespace Snake
     {
         static void Main(string[] args)
         {
-            Console.Clear();
-            Console.CursorVisible = false;
-            bool runProgramLoop = true;
-            var menuProcessor = new MenuProcessor();
-            menuProcessor.InitializeMenu();
-            var configuration = menuProcessor.ReadConfiguration();
+            var services = new ServiceCollection();
+            services.AddTransient<IPrinter, Printer>();
+            services.AddTransient<ISnakeMover, SnakeMover>();
+            services.AddTransient<IFruitSpawner, FruitSpawner>();
+            services.AddTransient<ICollisionDetector, CollisionDetector>();
+            services.AddTransient<IGameManager, GameManager>();
+            services.AddTransient<IGameProcessor, GameProcessor>();
+            
+            IGameManager gameManager = services.BuildServiceProvider().GetRequiredService<IGameManager>();
             do
             {
-                menuProcessor.ClearMenu();
-
-                var gameProcessor = new GameProcessor(
-                    configuration, 
-                    new((Console.WindowWidth - configuration.BoardWidth) / 2, 5));
-
-                var result = gameProcessor.Start();
-
-                menuProcessor.PrintResultScreen(result);
-                var pressedCharacter = Console.ReadKey(true).Key;
-                while(pressedCharacter != ConsoleKey.Enter && pressedCharacter != ConsoleKey.Escape)
-                {
-                    pressedCharacter = Console.ReadKey(true).Key;
-                }
-                if (pressedCharacter == ConsoleKey.Escape) runProgramLoop = false;
-                if (pressedCharacter == ConsoleKey.Enter) runProgramLoop = true;
+                gameManager.PrintMenu();
+                var gameConfig = gameManager.ReadConfiguration();
+                gameManager.ClearMenu();
+                var gameResult = gameManager.StartGame(gameConfig);
+                gameManager.PrintResultScreen(gameResult);
             }
-            while(runProgramLoop);
+            while (gameManager.CanRunProgramLoop());
+            
         }
     }
 }

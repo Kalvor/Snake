@@ -8,10 +8,10 @@ namespace Snake.Tools.Implementations
 {
     public sealed class Printer : IPrinter
     {
-        public Point InitialBoardPosition { get; init; }
-        public Printer(Point initialBoardPosition)
+        public Point InitialBoardPosition { get; private set; }
+        public Printer()
         {
-            InitialBoardPosition = initialBoardPosition;
+            InitialBoardPosition = new(0, 0);
         }
 
         public void PrintBoard(Board board)
@@ -63,5 +63,9 @@ namespace Snake.Tools.Implementations
             Console.Write(text.StringToPrint);
         }
 
+        public void SetInitialBoardPosition(Point point)
+        {
+            InitialBoardPosition = point;
+        }
     }
 }

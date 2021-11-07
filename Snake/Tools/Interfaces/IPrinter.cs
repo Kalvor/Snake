@@ -4,7 +4,8 @@ namespace Snake.Tools.Interfaces
 {
     public interface IPrinter
     {
-        Point InitialBoardPosition { get; init; }
+        Point InitialBoardPosition { get; }
+        void SetInitialBoardPosition(Point point);
         void PrintBoard(Board board);
         void ClearBoard(Board board);
         void PrintText(DisplayText text);

@@ -1,1 +1,1 @@
-- Add winning conditions, when there is no place for fruit to spawn
+- Add Death animation

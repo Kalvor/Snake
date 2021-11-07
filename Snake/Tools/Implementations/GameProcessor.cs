@@ -74,8 +74,17 @@ namespace Snake.Tools.Implementations
                     var lastNodeLocation = _Snake.GetTail().Location;
                     _SnakeMover.MoveSnake(_Snake, _CurrentDirection, _Board);
                     _Snake.AddNode(lastNodeLocation);
-                    _Fruits.Remove(_Fruits.FirstOrDefault(c => c.Location == _Snake.Head.Location));
-                    _Fruits.Add(_FruitSpawner.SpawnFruit(_Board));
+
+                    if(!_FruitSpawner.CanSpawnFruit(_Board))
+                    {
+                        _Cts.Cancel();
+                        _Result = GameResult.WIN;
+                    }
+                    else
+                    {
+                        _Fruits.Remove(_Fruits.FirstOrDefault(c => c.Location == _Snake.Head.Location));
+                        _Fruits.Add(_FruitSpawner.SpawnFruit(_Board));
+                    }
                 }
                 else
                 {

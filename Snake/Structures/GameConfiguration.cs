@@ -12,7 +12,7 @@ namespace Snake.Structures
 
         public int BoardWidth => Difficulty switch
         {
-            Difficulty.EASY => 30,
+            Difficulty.EASY => 20,
             Difficulty.MEDIUM => 30,
             Difficulty.HARD => 30,
             _ => throw new System.NotImplementedException()
@@ -20,9 +20,9 @@ namespace Snake.Structures
 
         public int BoardHeight => Difficulty switch
         {
-            Difficulty.EASY => 20,
+            Difficulty.EASY => 10,
             Difficulty.MEDIUM => 20,
-            Difficulty.HARD => 20,
+            Difficulty.HARD => 30,
             _ => throw new System.NotImplementedException()
         };
 

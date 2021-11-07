@@ -112,12 +112,7 @@ namespace Snake.Tools.Implementations
                 }
             }
 
-            return new GameConfiguration
-            {
-                BoardHeight = 10,
-                BoardWidth = 20,
-                Difficulty = difficulties[iterator]
-            };
+            return new GameConfiguration(difficulties[iterator]);
         }
         public GameResult StartGame(GameConfiguration gameConfiguration)
         {

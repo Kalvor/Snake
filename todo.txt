@@ -1,2 +1,1 @@
 - Add winning conditions, when there is no place for fruit to spawn
-- Define board width and height based on dificulty
